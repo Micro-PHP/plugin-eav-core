@@ -1,6 +1,6 @@
 <?php
 
-namespace Micro\Plugin\Eav\Business\Entity;
+namespace Micro\Plugin\Eav\Business\Entity\Manager;
 
 interface EntityManagerFactoryInterface
 {

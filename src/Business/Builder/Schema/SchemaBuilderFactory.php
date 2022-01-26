@@ -1,19 +1,20 @@
 <?php
 
-namespace Micro\Plugin\Eav\Business\Builder;
+namespace Micro\Plugin\Eav\Business\Builder\Schema;
 
+use Micro\Plugin\Eav\Business\Builder\Attribute\AttributeBuilderFactoryInterface;
+use Micro\Plugin\Eav\Business\Schema\SchemaManagerFactoryInterface;
 use Micro\Plugin\Eav\Business\Schema\SchemaManagerInterface;
-use Micro\Plugin\Eav\Business\Schema\SchemaManagerProviderInterface;
 
 class SchemaBuilderFactory implements SchemaBuilderFactoryInterface
 {
     /**
-     * @param SchemaManagerProviderInterface $schemaManagerProvider
-     * @param AttributeBuilderFactory $attributeBuilderFactory
+     * @param SchemaManagerFactoryInterface $schemaManagerFactory
+     * @param AttributeBuilderFactoryInterface $attributeBuilderFactory
      */
     public function __construct(
-        private SchemaManagerProviderInterface $schemaManagerProvider,
-        private AttributeBuilderFactory $attributeBuilderFactory
+        private SchemaManagerFactoryInterface $schemaManagerFactory,
+        private AttributeBuilderFactoryInterface $attributeBuilderFactory
     )
     {}
 
@@ -33,6 +34,6 @@ class SchemaBuilderFactory implements SchemaBuilderFactoryInterface
      */
     protected function getSchemaManager(): SchemaManagerInterface
     {
-        return $this->schemaManagerProvider->getManager();
+        return $this->schemaManagerFactory->create();
     }
 }

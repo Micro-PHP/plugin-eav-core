@@ -5,13 +5,13 @@ namespace Micro\Plugin\Eav;
 use Micro\Component\DependencyInjection\Container;
 use Micro\Framework\Kernel\Plugin\AbstractPlugin;
 use Micro\Plugin\Eav\Business\Attribute\AttributeFactoryInterface;
-use Micro\Plugin\Eav\Business\Builder\AttributeBuilderFactory;
-use Micro\Plugin\Eav\Business\Builder\AttributeBuilderFactoryInterface;
-use Micro\Plugin\Eav\Business\Builder\SchemaBuilderFactory;
-use Micro\Plugin\Eav\Business\Builder\SchemaBuilderFactoryInterface;
-use Micro\Plugin\Eav\Business\Entity\EntityManagerFactoryInterface;
-use Micro\Plugin\Eav\Business\Entity\EntityManagerProvider;
-use Micro\Plugin\Eav\Business\Entity\EntityManagerProviderInterface;
+use Micro\Plugin\Eav\Business\Builder\Attribute\AttributeBuilderFactory;
+use Micro\Plugin\Eav\Business\Builder\Attribute\AttributeBuilderFactoryInterface;
+use Micro\Plugin\Eav\Business\Builder\Schema\SchemaBuilderFactory;
+use Micro\Plugin\Eav\Business\Builder\Schema\SchemaBuilderFactoryInterface;
+use Micro\Plugin\Eav\Business\Entity\Manager\EntityManagerFactoryInterface;
+use Micro\Plugin\Eav\Business\Entity\Manager\EntityManagerProvider;
+use Micro\Plugin\Eav\Business\Entity\Manager\EntityManagerProviderInterface;
 use Micro\Plugin\Eav\Business\Schema\SchemaManagerFactoryInterface;
 use Micro\Plugin\Eav\Business\Schema\SchemaManagerProvider;
 use Micro\Plugin\Eav\Business\Schema\SchemaManagerProviderInterface;
@@ -22,10 +22,6 @@ abstract class EavCorePlugin extends AbstractPlugin
      * @var Container
      */
     protected Container $container;
-    /**
-     * @var SchemaManagerProviderInterface|null
-     */
-    private ?SchemaManagerProviderInterface $schemaManagerProvider = null;
 
     /**
      * @return SchemaManagerFactoryInterface
@@ -60,29 +56,9 @@ abstract class EavCorePlugin extends AbstractPlugin
     protected function createFacade(): EavFacadeInterface
     {
         return new EavFacade(
-            $this->createSchemaManagerProvider(),
+            $this->createSchemaManagerFactory(),
             $this->createSchemaBuilderFactory()
         );
-    }
-
-    /**
-     * @return SchemaManagerProviderInterface
-     */
-    protected function createSchemaManagerProvider(): SchemaManagerProviderInterface
-    {
-        if(!$this->schemaManagerProvider) {
-            $this->schemaManagerProvider = new SchemaManagerProvider($this->createSchemaManagerFactory());
-        }
-
-        return $this->schemaManagerProvider;
-    }
-
-    /**
-     * @return EntityManagerProviderInterface
-     */
-    protected function createEntityManagerProvider(): EntityManagerProviderInterface
-    {
-        return new EntityManagerProvider($this->createEntityManagerFactory());
     }
 
     /**
@@ -91,7 +67,7 @@ abstract class EavCorePlugin extends AbstractPlugin
     protected function createSchemaBuilderFactory(): SchemaBuilderFactoryInterface
     {
         return new SchemaBuilderFactory(
-            $this->createSchemaManagerProvider(),
+            $this->createSchemaManagerFactory(),
             $this->createAttributeBuilderFactory()
         );
     }
@@ -102,7 +78,7 @@ abstract class EavCorePlugin extends AbstractPlugin
     protected function createAttributeBuilderFactory(): AttributeBuilderFactoryInterface
     {
         return new AttributeBuilderFactory(
-            $this->createSchemaManagerProvider(),
+            $this->createSchemaManagerFactory(),
             $this->createAttributeFactory()
         );
     }

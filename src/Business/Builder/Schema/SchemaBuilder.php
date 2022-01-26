@@ -1,12 +1,11 @@
 <?php
 
-namespace Micro\Plugin\Eav\Business\Builder;
+namespace Micro\Plugin\Eav\Business\Builder\Schema;
 
 
-use Generator;
+use Micro\Plugin\Eav\Business\Builder\Attribute\AttributeBuilderFactoryInterface;
+use Micro\Plugin\Eav\Business\Builder\Attribute\AttributeBuilderInterface;
 use Micro\Plugin\Eav\Business\Schema\SchemaManagerInterface;
-use Micro\Plugin\Eav\Business\Schema\SchemaManagerProviderInterface;
-use Micro\Plugin\Eav\Entity\Attribute\AttributeInterface;
 use Micro\Plugin\Eav\Entity\Schema\SchemaInterface;
 use Micro\Plugin\Eav\Exception\SchemaNonUniqueException;
 use Micro\Plugin\Eav\Exception\SchemaNotFoundException;

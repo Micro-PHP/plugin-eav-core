@@ -1,6 +1,6 @@
 <?php
 
-namespace Micro\Plugin\Eav\Business\Builder;
+namespace Micro\Plugin\Eav\Business\Builder\Schema;
 
 interface SchemaBuilderFactoryInterface
 {

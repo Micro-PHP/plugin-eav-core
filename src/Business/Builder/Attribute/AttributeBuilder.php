@@ -1,8 +1,9 @@
 <?php
 
-namespace Micro\Plugin\Eav\Business\Builder;
+namespace Micro\Plugin\Eav\Business\Builder\Attribute;
 
 use Micro\Plugin\Eav\Business\Attribute\AttributeFactoryInterface;
+use Micro\Plugin\Eav\Business\Builder\Schema\SchemaBuilderInterface;
 use Micro\Plugin\Eav\Business\Schema\SchemaManagerInterface;
 use Micro\Plugin\Eav\Entity\Attribute\AttributeInterface;
 use Micro\Plugin\Eav\Entity\Schema\SchemaInterface;

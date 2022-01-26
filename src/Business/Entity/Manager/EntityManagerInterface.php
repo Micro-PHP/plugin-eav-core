@@ -1,6 +1,6 @@
 <?php
 
-namespace Micro\Plugin\Eav\Business\Entity;
+namespace Micro\Plugin\Eav\Business\Entity\Manager;
 
 use ArrayAccess;
 use Micro\Plugin\Eav\Entity\Entity\EntityInterface;
