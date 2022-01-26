@@ -7,7 +7,7 @@ Micro Framework plugin. Entity Attribute Value (EAV) supports.
 Use the package manager [Composer](https://getcomposer.org/) to install.
 
 ```bash
-composer require micro/plugin-doctrine
+composer require micro/plugin-eav-core
 ```
 
 ## Basic Configure
