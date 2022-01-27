@@ -9,12 +9,13 @@ use Micro\Plugin\Eav\Business\Builder\Attribute\AttributeBuilderFactory;
 use Micro\Plugin\Eav\Business\Builder\Attribute\AttributeBuilderFactoryInterface;
 use Micro\Plugin\Eav\Business\Builder\Schema\SchemaBuilderFactory;
 use Micro\Plugin\Eav\Business\Builder\Schema\SchemaBuilderFactoryInterface;
-use Micro\Plugin\Eav\Business\Entity\Manager\EntityManagerFactoryInterface;
-use Micro\Plugin\Eav\Business\Entity\Manager\EntityManagerProvider;
-use Micro\Plugin\Eav\Business\Entity\Manager\EntityManagerProviderInterface;
-use Micro\Plugin\Eav\Business\Schema\SchemaManagerFactoryInterface;
-use Micro\Plugin\Eav\Business\Schema\SchemaManagerProvider;
-use Micro\Plugin\Eav\Business\Schema\SchemaManagerProviderInterface;
+use Micro\Plugin\Eav\Business\Schema\Manager\SchemaObjectManagerFactoryInterface;
+use Micro\Plugin\Eav\Business\Schema\Resolver\SchemaResolverFactoryInterface;
+use Micro\Plugin\Eav\Business\Schema\SchemaAttributeManagerFactoryInterface;
+use Micro\Plugin\Eav\Facade\Entity\EntityFacadeFactory;
+use Micro\Plugin\Eav\Facade\Entity\EntityFacadeFactoryInterface;
+use Micro\Plugin\Eav\Facade\Schema\SchemaFacadeFactory;
+use Micro\Plugin\Eav\Facade\Schema\SchemaFacadeFactoryInterface;
 
 abstract class EavCorePlugin extends AbstractPlugin
 {
@@ -24,19 +25,24 @@ abstract class EavCorePlugin extends AbstractPlugin
     protected Container $container;
 
     /**
-     * @return SchemaManagerFactoryInterface
+     * @return SchemaAttributeManagerFactoryInterface
      */
-    abstract protected function createSchemaManagerFactory(): SchemaManagerFactoryInterface;
-
-    /**
-     * @return EntityManagerFactoryInterface
-     */
-    abstract protected function createEntityManagerFactory(): EntityManagerFactoryInterface;
+    abstract protected function createSchemaAttributeManagerFactory(): SchemaAttributeManagerFactoryInterface;
 
     /**
      * @return AttributeFactoryInterface
      */
     abstract protected function createAttributeFactory(): AttributeFactoryInterface;
+
+    /**
+     * @return SchemaResolverFactoryInterface
+     */
+    abstract protected function createSchemaResolverFactory(): SchemaResolverFactoryInterface;
+
+    /**
+     * @return SchemaObjectManagerFactoryInterface
+     */
+    abstract protected function createSchemaObjectManagerFactory(): SchemaObjectManagerFactoryInterface;
 
     /**
      * {@inheritDoc}
@@ -56,9 +62,28 @@ abstract class EavCorePlugin extends AbstractPlugin
     protected function createFacade(): EavFacadeInterface
     {
         return new EavFacade(
-            $this->createSchemaManagerFactory(),
-            $this->createSchemaBuilderFactory()
+            $this->createSchemaFacadeFactory(),
+            $this->createEntityFacadeFactory()
         );
+    }
+
+    /**
+     * @return SchemaFacadeFactoryInterface
+     */
+    protected function createSchemaFacadeFactory(): SchemaFacadeFactoryInterface
+    {
+        return new SchemaFacadeFactory(
+            $this->createSchemaBuilderFactory(),
+            $this->createSchemaObjectManagerFactory()
+        );
+    }
+
+    /**
+     * @return EntityFacadeFactoryInterface
+     */
+    protected function createEntityFacadeFactory(): EntityFacadeFactoryInterface
+    {
+        return new EntityFacadeFactory();
     }
 
     /**
@@ -67,7 +92,7 @@ abstract class EavCorePlugin extends AbstractPlugin
     protected function createSchemaBuilderFactory(): SchemaBuilderFactoryInterface
     {
         return new SchemaBuilderFactory(
-            $this->createSchemaManagerFactory(),
+            $this->createSchemaResolverFactory(),
             $this->createAttributeBuilderFactory()
         );
     }
@@ -78,7 +103,7 @@ abstract class EavCorePlugin extends AbstractPlugin
     protected function createAttributeBuilderFactory(): AttributeBuilderFactoryInterface
     {
         return new AttributeBuilderFactory(
-            $this->createSchemaManagerFactory(),
+            $this->createSchemaAttributeManagerFactory(),
             $this->createAttributeFactory()
         );
     }

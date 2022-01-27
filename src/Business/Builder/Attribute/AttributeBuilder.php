@@ -4,7 +4,7 @@ namespace Micro\Plugin\Eav\Business\Builder\Attribute;
 
 use Micro\Plugin\Eav\Business\Attribute\AttributeFactoryInterface;
 use Micro\Plugin\Eav\Business\Builder\Schema\SchemaBuilderInterface;
-use Micro\Plugin\Eav\Business\Schema\SchemaManagerInterface;
+use Micro\Plugin\Eav\Business\Schema\SchemaAttributeManagerInterface;
 use Micro\Plugin\Eav\Entity\Attribute\AttributeInterface;
 use Micro\Plugin\Eav\Entity\Schema\SchemaInterface;
 use Micro\Plugin\Eav\Exception\AttributeNotFoundException;
@@ -38,15 +38,15 @@ class AttributeBuilder implements AttributeBuilderInterface
     private bool $isUnique = false;
 
     /**
-     * @param SchemaManagerInterface $schemaManager
+     * @param SchemaAttributeManagerInterface $schemaManager
      * @param SchemaBuilderInterface $schemaBuilder
      * @param AttributeFactoryInterface $attributeFactory
      */
     public function __construct(
-        private SchemaManagerInterface $schemaManager,
-        private SchemaBuilderInterface $schemaBuilder,
-        private AttributeFactoryInterface $attributeFactory,
-        private string $attributeName
+        private SchemaAttributeManagerInterface $schemaManager,
+        private SchemaBuilderInterface          $schemaBuilder,
+        private AttributeFactoryInterface       $attributeFactory,
+        private string                          $attributeName
     )
     {}
 

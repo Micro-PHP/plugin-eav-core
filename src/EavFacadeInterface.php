@@ -3,12 +3,10 @@
 namespace Micro\Plugin\Eav;
 
 
-use Micro\Plugin\Eav\Business\Builder\Schema\SchemaBuilderInterface;
+use Micro\Plugin\Eav\Facade\Entity\EntityFacadeInterface;
+use Micro\Plugin\Eav\Facade\Schema\SchemaFacadeInterface;
 
 interface EavFacadeInterface
 {
-    /**
-     * @return SchemaBuilderInterface
-     */
-    public function buildSchema(): SchemaBuilderInterface;
+
 }

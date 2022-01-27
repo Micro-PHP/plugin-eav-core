@@ -24,9 +24,11 @@ composer require micro/plugin-eav-core
 
 use Micro\Plugin\Eav\EavFacadeInterface;
 
+/** @var  EavFacadeInterface $eavFacade */
 $eavFacade = $container->get(EavFacadeInterface::class);
-$eavFacade
-    ->buildSchema()
+$eavSchemaFacade = $eavFacade->schema();
+$schema = $eavSchemaFacade
+    ->createBuilder()
         ->setName('Book')
         ->addAttribute('title')
             ->setLength(100)
@@ -39,6 +41,9 @@ $eavFacade
             ->complete()
     ->force()
     ->build();
+
+$eavFacade->schema()->save($eavSchemaFacade);
+
 ```
 
 ## Other docs

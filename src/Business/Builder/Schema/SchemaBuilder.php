@@ -2,13 +2,11 @@
 
 namespace Micro\Plugin\Eav\Business\Builder\Schema;
 
-
 use Micro\Plugin\Eav\Business\Builder\Attribute\AttributeBuilderFactoryInterface;
 use Micro\Plugin\Eav\Business\Builder\Attribute\AttributeBuilderInterface;
-use Micro\Plugin\Eav\Business\Schema\SchemaManagerInterface;
+use Micro\Plugin\Eav\Business\Schema\Resolver\SchemaResolverFactoryInterface;
 use Micro\Plugin\Eav\Entity\Schema\SchemaInterface;
 use Micro\Plugin\Eav\Exception\SchemaNonUniqueException;
-use Micro\Plugin\Eav\Exception\SchemaNotFoundException;
 
 class SchemaBuilder implements SchemaBuilderInterface
 {
@@ -33,13 +31,27 @@ class SchemaBuilder implements SchemaBuilderInterface
     private array $attributeBuilderCollection = [];
 
     /**
-     * @param SchemaManagerInterface $schemaManager
+     * @var SchemaInterface|null
+     */
+    private ?SchemaInterface $schema = null;
+
+    /**
+     * @param SchemaResolverFactoryInterface $schemaResolverFactory
      * @param AttributeBuilderFactoryInterface $attributeBuilderFactory
      */
     public function __construct(
-        private SchemaManagerInterface $schemaManager,
+        private SchemaResolverFactoryInterface $schemaResolverFactory,
         private AttributeBuilderFactoryInterface $attributeBuilderFactory
     ) {}
+
+    /**
+     * @param SchemaInterface $schema
+     * @return SchemaBuilderInterface
+     */
+    public function setSchema(SchemaInterface $schema): SchemaBuilderInterface
+    {
+        $this->schema = $schema;
+    }
 
     /**
      * @param string $schemaName
@@ -93,15 +105,13 @@ class SchemaBuilder implements SchemaBuilderInterface
         $schema->setEntityClass($this->entityClass);
         $this->setAttributes($schema);
 
-        $this->schemaManager->save($schema);
-
         return $schema;
     }
 
     /**
      * @param SchemaInterface $schema
      */
-    protected function setAttributes(SchemaInterface $schema)
+    protected function setAttributes(SchemaInterface $schema): void
     {
         foreach ($this->attributeBuilderCollection as $builder) {
             $builder->create($schema);
@@ -113,16 +123,21 @@ class SchemaBuilder implements SchemaBuilderInterface
      */
     protected function getOrCreateSchema(): SchemaInterface
     {
-        try {
-            $schema = $this->schemaManager->findByName($this->name);
-            if($this->isForce === false) {
-                throw new SchemaNonUniqueException($this->name);
-            }
-
-            return $schema;
-
-        } catch (SchemaNotFoundException $exception) {
-            return $this->schemaManager->create($this->name);
+        if($this->schema !== null) {
+            return $this->schema;
         }
+
+        $resolver = $this->schemaResolverFactory->create();
+        $schema = $resolver->resolve($this->name);
+
+        if($schema === null) {
+            return $resolver->create($this->name);
+        }
+
+        if($this->isForce === false) {
+            throw new SchemaNonUniqueException($this->name);
+        }
+
+        return $schema;
     }
 }

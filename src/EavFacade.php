@@ -3,23 +3,35 @@
 namespace Micro\Plugin\Eav;
 
 
-use Micro\Plugin\Eav\Business\Builder\Schema\SchemaBuilderFactoryInterface;
-use Micro\Plugin\Eav\Business\Builder\Schema\SchemaBuilderInterface;
-use Micro\Plugin\Eav\Business\Schema\SchemaManagerFactoryInterface;
+use Micro\Plugin\Eav\Entity\Entity\EntityInterface;
+use Micro\Plugin\Eav\Facade\Entity\EntityFacadeFactoryInterface;
+use Micro\Plugin\Eav\Facade\Entity\EntityFacadeInterface;
+use Micro\Plugin\Eav\Facade\Schema\SchemaFacadeFactoryInterface;
+use Micro\Plugin\Eav\Facade\Schema\SchemaFacadeInterface;
 
 class EavFacade implements EavFacadeInterface
 {
+    /**
+     * @param SchemaFacadeFactoryInterface $schemaFacadeFactory
+     */
     public function __construct(
-        private SchemaManagerFactoryInterface $schemaManagerProvider,
-        protected SchemaBuilderFactoryInterface $schemaBuilderFactory
-    )
-    {}
+        private SchemaFacadeFactoryInterface $schemaFacadeFactory,
+        private EntityFacadeFactoryInterface $entityFacadeFactory
+    ) {}
+
+    /**
+     * @return SchemaFacadeInterface
+     */
+    public function schema(): SchemaFacadeInterface
+    {
+        return $this->schemaFacadeFactory->create();
+    }
 
     /**
      * {@inheritDoc}
      */
-    public function buildSchema(): SchemaBuilderInterface
+    public function entity(): EntityFacadeInterface
     {
-        return $this->schemaBuilderFactory->create();
+        return $this->entityFacadeFactory->create();
     }
 }
