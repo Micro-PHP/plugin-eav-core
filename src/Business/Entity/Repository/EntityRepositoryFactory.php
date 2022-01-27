@@ -15,7 +15,6 @@ class EntityRepositoryFactory implements EntityRepositoryFactoryInterface
         private EntityResolverFactoryInterface $entityResolverFactory
     )
     {
-
     }
 
     /**

@@ -6,8 +6,6 @@ use Micro\Plugin\Eav\Entity\Schema\SchemaInterface;
 
 interface AttributeInterface
 {
-
-
     /**
      * @param string $name
      *
