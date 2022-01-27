@@ -12,4 +12,14 @@
             <directory name="vendor" />
         </ignoreFiles>
     </projectFiles>
+    <issueHandlers>
+        <UndefinedClass>
+            <errorLevel type="suppress">
+                <referencedClass name="Micro\Framework\Kernel\Configuration\PluginConfiguration" />
+            </errorLevel>
+            <errorLevel type="suppress">
+                <referencedClass name="Micro\Framework\Kernel\Plugin\AbstractPlugin" />
+            </errorLevel>
+        </UndefinedClass>
+    </issueHandlers>
 </psalm>
