@@ -7,5 +7,4 @@ use Micro\Plugin\Eav\Entity\Entity\EntityInterface;
 
 interface EntityAttributeResolverInterface
 {
-
 }
