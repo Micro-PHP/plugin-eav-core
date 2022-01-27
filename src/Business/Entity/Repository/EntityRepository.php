@@ -7,6 +7,7 @@ use Micro\Plugin\Eav\Business\Entity\Resolver\EntityResolverInterface;
 use Micro\Plugin\Eav\Business\Schema\Resolver\SchemaResolverInterface;
 use Micro\Plugin\Eav\Entity\Entity\EntityInterface;
 use Micro\Plugin\Eav\Entity\Schema\SchemaInterface;
+use Micro\Plugin\Eav\Exception\SchemaNotFoundException;
 
 class EntityRepository implements EntityRepositoryInterface
 {
@@ -24,23 +25,36 @@ class EntityRepository implements EntityRepositoryInterface
     /**
      * {@inheritDoc}
      */
-    public function findById(int $id): EntityInterface
+    public function find(string $id): EntityInterface
     {
         $schema = $this->lookupSchema();
 
         return $this->entityResolver->resolve($schema, $id);
     }
 
-    protected function lookupSchema(): SchemaInterface|null
+    /**
+     * @return SchemaInterface
+     *
+     * @throws SchemaNotFoundException
+     */
+    protected function lookupSchema(): SchemaInterface
     {
-        return $this->schemaResolver->resolve($this->schemaName);
+        $schema = $this->schemaResolver->resolve($this->schemaName);
+        if(!$schema) {
+            throw new SchemaNotFoundException();
+        }
+
+        return $schema;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function list(int $count = null, int $offsetId = null): iterable
+    public function list(int $count = null, string $offsetId = null): iterable
     {
+        $schema = $this->lookupSchema();
+
+        return $this->entityResolver->resolveList($schema, $count, $offsetId);
     }
 
     /**
@@ -48,5 +62,8 @@ class EntityRepository implements EntityRepositoryInterface
      */
     public function count(): int
     {
+        $schema = $this->lookupSchema();
+
+        return $this->entityResolver->count($schema);
     }
 }

@@ -13,5 +13,19 @@ interface EntityResolverInterface
      *
      * @return EntityInterface
      */
-    public function resolve(SchemaInterface $schema, int $id): EntityInterface;
+    public function resolve(SchemaInterface $schema, string $id): EntityInterface;
+
+    /**
+     * @param SchemaInterface $schema
+     * @param int|null $count
+     * @param string|null $offsetId
+     * @return iterable
+     */
+    public function resolveList(SchemaInterface $schema, int $count = null, string $offsetId = null): iterable;
+
+    /**
+     * @param SchemaInterface $schema
+     * @return int
+     */
+    public function count(SchemaInterface $schema): int;
 }

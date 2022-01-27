@@ -13,6 +13,7 @@ class EavFacade implements EavFacadeInterface
 {
     /**
      * @param SchemaFacadeFactoryInterface $schemaFacadeFactory
+     * @param EntityFacadeFactoryInterface $entityFacadeFactory
      */
     public function __construct(
         private SchemaFacadeFactoryInterface $schemaFacadeFactory,
@@ -20,7 +21,7 @@ class EavFacade implements EavFacadeInterface
     ) {}
 
     /**
-     * @return SchemaFacadeInterface
+     * {@inheritDoc}
      */
     public function schema(): SchemaFacadeInterface
     {
