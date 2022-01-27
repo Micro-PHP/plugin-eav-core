@@ -8,7 +8,7 @@ interface ValueInterface
     /**
      * @return mixed
      */
-    public function getValue(): mixed;
+    public function getValue();
 
     /**
      * @return string

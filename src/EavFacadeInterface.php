@@ -8,5 +8,13 @@ use Micro\Plugin\Eav\Facade\Schema\SchemaFacadeInterface;
 
 interface EavFacadeInterface
 {
+    /**
+     * @return EntityFacadeInterface
+     */
+    public function entity(): EntityFacadeInterface;
 
+    /**
+     * @return SchemaFacadeInterface
+     */
+    public function schema(): SchemaFacadeInterface;
 }

@@ -9,7 +9,10 @@ use phpseclib3\Common\Functions\Strings;
 
 class EntityRepositoryFactory implements EntityRepositoryFactoryInterface
 {
-
+    /**
+     * @param SchemaResolverFactoryInterface $schemaResolverFactory
+     * @param EntityResolverFactoryInterface $entityResolverFactory
+     */
     public function __construct(
         private SchemaResolverFactoryInterface $schemaResolverFactory,
         private EntityResolverFactoryInterface $entityResolverFactory

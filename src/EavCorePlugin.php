@@ -9,6 +9,10 @@ use Micro\Plugin\Eav\Business\Builder\Attribute\AttributeBuilderFactory;
 use Micro\Plugin\Eav\Business\Builder\Attribute\AttributeBuilderFactoryInterface;
 use Micro\Plugin\Eav\Business\Builder\Schema\SchemaBuilderFactory;
 use Micro\Plugin\Eav\Business\Builder\Schema\SchemaBuilderFactoryInterface;
+use Micro\Plugin\Eav\Business\Entity\Manager\EntityObjectManagerFactoryInterface;
+use Micro\Plugin\Eav\Business\Entity\Repository\EntityRepositoryFactory;
+use Micro\Plugin\Eav\Business\Entity\Repository\EntityRepositoryFactoryInterface;
+use Micro\Plugin\Eav\Business\Entity\Resolver\EntityResolverFactoryInterface;
 use Micro\Plugin\Eav\Business\Schema\Manager\SchemaObjectManagerFactoryInterface;
 use Micro\Plugin\Eav\Business\Schema\Resolver\SchemaResolverFactoryInterface;
 use Micro\Plugin\Eav\Business\Schema\SchemaAttributeManagerFactoryInterface;
@@ -43,6 +47,16 @@ abstract class EavCorePlugin extends AbstractPlugin
      * @return SchemaObjectManagerFactoryInterface
      */
     abstract protected function createSchemaObjectManagerFactory(): SchemaObjectManagerFactoryInterface;
+
+    /**
+     * @return EntityObjectManagerFactoryInterface
+     */
+    abstract protected function createEntityObjectManagerFactory(): EntityObjectManagerFactoryInterface;
+
+    /**
+     * @return EntityResolverFactoryInterface
+     */
+    abstract protected function createEntityResolverFactory(): EntityResolverFactoryInterface;
 
     /**
      * {@inheritDoc}
@@ -83,7 +97,21 @@ abstract class EavCorePlugin extends AbstractPlugin
      */
     protected function createEntityFacadeFactory(): EntityFacadeFactoryInterface
     {
-        return new EntityFacadeFactory();
+        return new EntityFacadeFactory(
+            $this->createEntityObjectManagerFactory(),
+            $this->createEntityRepositoryFactory()
+        );
+    }
+
+    /**
+     * @return EntityRepositoryFactoryInterface
+     */
+    protected function createEntityRepositoryFactory(): EntityRepositoryFactoryInterface
+    {
+        return new EntityRepositoryFactory(
+            $this->createSchemaResolverFactory(),
+            $this->createEntityResolverFactory()
+        );
     }
 
     /**
