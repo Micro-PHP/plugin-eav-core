@@ -2,10 +2,13 @@
 
 namespace Micro\Plugin\Eav\Entity\Attribute;
 
-use Micro\Plugin\Eav\Entity\Schema\SchemaInterface;
 
 interface AttributeInterface
 {
+    /**
+     * @return string
+     */
+    public function getName(): string;
     /**
      * @param string $name
      *
