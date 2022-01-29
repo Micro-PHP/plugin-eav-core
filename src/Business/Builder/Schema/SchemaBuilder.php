@@ -4,6 +4,7 @@ namespace Micro\Plugin\Eav\Business\Builder\Schema;
 
 use Micro\Plugin\Eav\Business\Builder\Attribute\AttributeBuilderFactoryInterface;
 use Micro\Plugin\Eav\Business\Builder\Attribute\AttributeBuilderInterface;
+use Micro\Plugin\Eav\Business\Schema\Factory\SchemaFactoryInterface;
 use Micro\Plugin\Eav\Business\Schema\Resolver\SchemaResolverFactoryInterface;
 use Micro\Plugin\Eav\Entity\Schema\SchemaInterface;
 use Micro\Plugin\Eav\Exception\SchemaNonUniqueException;
@@ -37,16 +38,17 @@ class SchemaBuilder implements SchemaBuilderInterface
 
     /**
      * @param SchemaResolverFactoryInterface $schemaResolverFactory
+     * @param SchemaFactoryInterface $schemaFactory
      * @param AttributeBuilderFactoryInterface $attributeBuilderFactory
      */
     public function __construct(
         private SchemaResolverFactoryInterface $schemaResolverFactory,
+        private SchemaFactoryInterface $schemaFactory,
         private AttributeBuilderFactoryInterface $attributeBuilderFactory
     ) {}
 
     /**
-     * @param SchemaInterface $schema
-     * @return SchemaBuilderInterface
+     * {@inheritDoc}
      */
     public function setSchema(SchemaInterface $schema): SchemaBuilderInterface
     {
@@ -54,8 +56,7 @@ class SchemaBuilder implements SchemaBuilderInterface
     }
 
     /**
-     * @param string $schemaName
-     * @return $this
+     * {@inheritDoc}
      */
     public function setName(string $schemaName): self
     {
@@ -65,8 +66,7 @@ class SchemaBuilder implements SchemaBuilderInterface
     }
 
     /**
-     * @param string|null $entityClass
-     * @return $this
+     * {@inheritDoc}
      */
     public function setEntityClass(?string $entityClass): self
     {
@@ -75,6 +75,9 @@ class SchemaBuilder implements SchemaBuilderInterface
         return $this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function addAttribute(string $attributeName): AttributeBuilderInterface
     {
         $attributeBuilder = $this->attributeBuilderFactory->create($this, $attributeName);
@@ -131,7 +134,7 @@ class SchemaBuilder implements SchemaBuilderInterface
         $schema = $resolver->resolve($this->name);
 
         if($schema === null) {
-            return $resolver->create($this->name);
+            return $this->schemaFactory->create($this->name);
         }
 
         if($this->isForce === false) {

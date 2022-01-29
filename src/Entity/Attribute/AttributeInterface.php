@@ -38,11 +38,21 @@ interface AttributeInterface
     public function setNullable(bool $nullable): self;
 
     /**
+     * @return bool
+     */
+    public function isNullable(): bool;
+
+    /**
      * @param int|null $length
      *
      * @return self
      */
     public function setLength(?int $length = null): self;
+
+    /**
+     * @return int|null
+     */
+    public function getLength(): ?int;
 
     /**
      * @param string|null $description
@@ -52,6 +62,11 @@ interface AttributeInterface
     public function setDescription(?string $description): self;
 
     /**
+     * @return string|null
+     */
+    public function getDescription(): ?string;
+
+    /**
      * @param string|null $defaultValue
      *
      * @return self
@@ -59,9 +74,24 @@ interface AttributeInterface
     public function setDefaultValue(?string $defaultValue): self;
 
     /**
+     * @return string|null
+     */
+    public function getDefaultValue(): ?string;
+
+    /**
+     * @return bool
+     */
+    public function isUnique(): bool;
+
+    /**
      * @param bool $isUnique
      *
      * @return self
      */
     public function setIsUnique(bool $isUnique): self;
+
+    /**
+     * @return string
+     */
+    public function __toString(): string;
 }
