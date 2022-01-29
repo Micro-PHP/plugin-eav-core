@@ -1,18 +1,18 @@
 <?php
 
-namespace Micro\Plugin\Eav\Business\Value\Resolver;
+namespace Micro\Plugin\Eav\Business\Value\Unique;
 
 use Micro\Plugin\Eav\Entity\Attribute\AttributeInterface;
 use Micro\Plugin\Eav\Entity\Entity\EntityInterface;
 use Micro\Plugin\Eav\Entity\Value\ValueInterface;
 
-interface ValueResolverInterface
+interface EntityAttributeUniqueGeneratorInterface
 {
     /**
      * @param EntityInterface $entity
      * @param AttributeInterface $attribute
-     *
-     * @return ValueInterface
+     * @param ValueInterface $value
+     * @return void
      */
-    public function resolve(EntityInterface $entity, AttributeInterface $attribute): ValueInterface;
+    public function generate(EntityInterface $entity, AttributeInterface $attribute, ValueInterface $value): void;
 }
