@@ -36,6 +36,7 @@ use Micro\Plugin\Eav\Facade\Entity\EntityFacadeFactory;
 use Micro\Plugin\Eav\Facade\Entity\EntityFacadeFactoryInterface;
 use Micro\Plugin\Eav\Facade\Schema\SchemaFacadeFactory;
 use Micro\Plugin\Eav\Facade\Schema\SchemaFacadeFactoryInterface;
+use Micro\Plugin\EventEmitter\EventsFacadeInterface;
 
 abstract class EavCorePlugin extends AbstractPlugin
 {
@@ -128,7 +129,7 @@ abstract class EavCorePlugin extends AbstractPlugin
     {
         return new EavFacade(
             $this->createSchemaFacadeFactory(),
-            $this->createEntityFacadeFactory()
+            $this->createEntityFacadeFactory(),
         );
     }
 
@@ -144,6 +145,14 @@ abstract class EavCorePlugin extends AbstractPlugin
             IntegerTypehintConverter::class,
             DateTimeTypehintConverter::class,
         ];
+    }
+
+    /**
+     * @return EventsFacadeInterface
+     */
+    protected function lookupEventEmitter(): EventsFacadeInterface
+    {
+        return $this->container->get(EventsFacadeInterface::class);
     }
 
     /**
@@ -174,7 +183,8 @@ abstract class EavCorePlugin extends AbstractPlugin
             $this->createEntityObjectManagerFactory(),
             $this->createEntityRepositoryFactory(),
             $this->createEntityBuilderFactory(),
-            $this->createValueObjectGetFactory()
+            $this->createValueObjectGetFactory(),
+            $this->lookupEventEmitter()
         );
     }
 

@@ -3,7 +3,6 @@
 namespace Micro\Plugin\Eav\Facade\Entity;
 
 use Micro\Plugin\Eav\Business\Entity\Builder\EntityBuilderInterface;
-use Micro\Plugin\Eav\Entity\Attribute\AttributeInterface;
 use Micro\Plugin\Eav\Entity\Entity\EntityInterface;
 
 interface EntityFacadeInterface
@@ -47,16 +46,17 @@ interface EntityFacadeInterface
     public function find(string $schemaName, string $id): ?EntityInterface;
 
     /**
-     * @param EntityInterface $entity
-     * @param string $attributeName
-     * @return mixed
-     */
-    public function getValue(EntityInterface $entity, string $attributeName): mixed;
-
-    /**
      * @param EntityInterface|null $entity
      *
      * @return EntityBuilderInterface
      */
     public function createBuilder(EntityInterface $entity = null): EntityBuilderInterface;
+
+    /**
+     * @param EntityInterface $entity
+     * @param string $attributeName
+     *
+     * @return mixed
+     */
+    public function getValue(EntityInterface $entity, string $attributeName): mixed;
 }

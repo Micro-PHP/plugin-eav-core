@@ -8,7 +8,14 @@ use Micro\Plugin\Eav\Business\Entity\Manager\EntityObjectManagerFactoryInterface
 use Micro\Plugin\Eav\Business\Entity\Repository\EntityRepositoryFactoryInterface;
 use Micro\Plugin\Eav\Business\Value\Get\ValueObjectGetFactoryInterface;
 use Micro\Plugin\Eav\Entity\Entity\EntityInterface;
+use Micro\Plugin\Eav\Event\EntityCreateEvent;
+use Micro\Plugin\Eav\Event\EntityDeleteEvent;
+use Micro\Plugin\Eav\Event\EntityUpdateEvent;
+use Micro\Plugin\EventEmitter\EventsFacadeInterface;
 
+/**
+ * TODO: Entity events implementation. Basic implementation now
+ */
 class EntityFacade implements EntityFacadeInterface
 {
     /**
@@ -16,12 +23,14 @@ class EntityFacade implements EntityFacadeInterface
      * @param EntityRepositoryFactoryInterface $entityRepositoryFactory
      * @param EntityBuilderFactoryInterface $entityBuilderFactory
      * @param ValueObjectGetFactoryInterface $valueObjectGetFactory
+     * @param EventsFacadeInterface $eventFacade
      */
     public function __construct(
         private EntityObjectManagerFactoryInterface $entityObjectManagerFactory,
         private EntityRepositoryFactoryInterface $entityRepositoryFactory,
         private EntityBuilderFactoryInterface $entityBuilderFactory,
-        private ValueObjectGetFactoryInterface $valueObjectGetFactory
+        private ValueObjectGetFactoryInterface $valueObjectGetFactory,
+        private EventsFacadeInterface $eventFacade
     )
     {
     }
@@ -31,9 +40,15 @@ class EntityFacade implements EntityFacadeInterface
      */
     public function save(EntityInterface $entity): void
     {
+        $eventClass = $entity->getId() === null ?
+            EntityCreateEvent::class :
+            EntityUpdateEvent::class;
+
         $this->entityObjectManagerFactory
             ->create()
             ->save($entity);
+
+        $this->eventFacade->emit(new $eventClass($entity));
     }
 
     /**
@@ -44,6 +59,8 @@ class EntityFacade implements EntityFacadeInterface
         $this->entityObjectManagerFactory
             ->create()
             ->remove($entity);
+
+        $this->eventFacade->emit(new EntityDeleteEvent($entity));
     }
 
     /**
