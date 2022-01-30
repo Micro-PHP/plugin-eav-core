@@ -40,6 +40,7 @@ class EntityFacade implements EntityFacadeInterface
      */
     public function save(EntityInterface $entity): void
     {
+        dump('SAVE: ' . $entity->getId());
         $eventClass = $entity->getId() === null ?
             EntityCreateEvent::class :
             EntityUpdateEvent::class;
