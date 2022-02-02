@@ -14,8 +14,8 @@ class EntityRepositoryFactory implements EntityRepositoryFactoryInterface
      * @param EntityResolverFactoryInterface $entityResolverFactory
      */
     public function __construct(
-        private SchemaResolverFactoryInterface $schemaResolverFactory,
-        private EntityResolverFactoryInterface $entityResolverFactory
+    private SchemaResolverFactoryInterface $schemaResolverFactory,
+    private EntityResolverFactoryInterface $entityResolverFactory
     )
     {
     }

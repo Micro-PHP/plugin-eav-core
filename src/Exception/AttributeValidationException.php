@@ -2,7 +2,6 @@
 
 namespace Micro\Plugin\Eav\Exception;
 
-
 use Micro\Plugin\Eav\Entity\Attribute\AttributeInterface;
 
 class AttributeValidationException extends InvalidArgumentException
@@ -18,7 +17,7 @@ class AttributeValidationException extends InvalidArgumentException
         parent::__construct(
             sprintf('Attribute "%s" value "%s" is not valid',
                 $this->attribute->getName(),
-                (string) $this->value
+                (string)$this->value
             ),
             $code,
             $previous

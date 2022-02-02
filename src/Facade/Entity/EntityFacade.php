@@ -26,11 +26,11 @@ class EntityFacade implements EntityFacadeInterface
      * @param EventsFacadeInterface $eventFacade
      */
     public function __construct(
-        private EntityObjectManagerFactoryInterface $entityObjectManagerFactory,
-        private EntityRepositoryFactoryInterface $entityRepositoryFactory,
-        private EntityBuilderFactoryInterface $entityBuilderFactory,
-        private ValueObjectGetFactoryInterface $valueObjectGetFactory,
-        private EventsFacadeInterface $eventFacade
+    private EntityObjectManagerFactoryInterface $entityObjectManagerFactory,
+    private EntityRepositoryFactoryInterface $entityRepositoryFactory,
+    private EntityBuilderFactoryInterface $entityBuilderFactory,
+    private ValueObjectGetFactoryInterface $valueObjectGetFactory,
+    private EventsFacadeInterface $eventFacade
     )
     {
     }
@@ -40,7 +40,6 @@ class EntityFacade implements EntityFacadeInterface
      */
     public function save(EntityInterface $entity): void
     {
-        dump('SAVE: ' . $entity->getId());
         $eventClass = $entity->getId() === null ?
             EntityCreateEvent::class :
             EntityUpdateEvent::class;

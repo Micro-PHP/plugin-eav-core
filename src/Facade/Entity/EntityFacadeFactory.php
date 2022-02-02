@@ -18,11 +18,11 @@ class EntityFacadeFactory implements EntityFacadeFactoryInterface
      * @param EventsFacadeInterface $eventsFacade
      */
     public function __construct(
-        private EntityObjectManagerFactoryInterface $entityObjectManagerFactory,
-        private EntityRepositoryFactoryInterface $entityRepositoryFactory,
-        private EntityBuilderFactoryInterface $entityBuilderFactory,
-        private ValueObjectGetFactoryInterface $valueObjectGetFactory,
-        private EventsFacadeInterface $eventsFacade
+    private EntityObjectManagerFactoryInterface $entityObjectManagerFactory,
+    private EntityRepositoryFactoryInterface $entityRepositoryFactory,
+    private EntityBuilderFactoryInterface $entityBuilderFactory,
+    private ValueObjectGetFactoryInterface $valueObjectGetFactory,
+    private EventsFacadeInterface $eventsFacade
     )
     {
     }

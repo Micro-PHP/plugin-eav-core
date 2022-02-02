@@ -44,14 +44,14 @@ class EntityBuilder implements EntityBuilderInterface
      * @param EntityInterface|null $entity
      */
     public function __construct(
-        private EntityAttributeResolverFactoryInterface        $entityAttributeResolverFactory,
-        private SchemaResolverFactoryInterface                 $schemaResolverFactory,
-        private ValueResolverFactoryInterface                  $valueResolverFactory,
-        private ValueObjectSetFactoryInterface                 $valueObjectSetFactory,
-        private ValueTypehintConverterFactoryInterface         $valueTypehintConverterFactory,
-        private EntityFactoryInterface                         $entityFactory,
-        private EntityAttributeUniqueGeneratorFactoryInterface $entityAttributeUniqueGeneratorFactory,
-        private ?EntityInterface                               $entity = null
+    private EntityAttributeResolverFactoryInterface        $entityAttributeResolverFactory,
+    private SchemaResolverFactoryInterface                 $schemaResolverFactory,
+    private ValueResolverFactoryInterface                  $valueResolverFactory,
+    private ValueObjectSetFactoryInterface                 $valueObjectSetFactory,
+    private ValueTypehintConverterFactoryInterface         $valueTypehintConverterFactory,
+    private EntityFactoryInterface                         $entityFactory,
+    private EntityAttributeUniqueGeneratorFactoryInterface $entityAttributeUniqueGeneratorFactory,
+    private ?EntityInterface                               $entity = null
     )
     {
     }
@@ -113,7 +113,7 @@ class EntityBuilder implements EntityBuilderInterface
         $entity = $this->getEntity();
 
         /** @var Attribute $attribute */
-        $attribute = $this->lookupAttribute($attributeName);
+        $attribute   = $this->lookupAttribute($attributeName);
         $valueObject = $this->valueResolverFactory->create()
             ->resolve($entity, $attribute);
 

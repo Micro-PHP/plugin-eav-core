@@ -11,7 +11,8 @@ class ValueTypeProvider implements ValueTypeProviderInterface
      * @param array<string, string> $valueTypesMapping
      */
     public function __construct(private array $valueTypesMapping)
-    {}
+    {
+    }
 
     /**
      * @param AttributeInterface $attribute

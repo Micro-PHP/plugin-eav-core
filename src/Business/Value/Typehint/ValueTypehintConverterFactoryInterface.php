@@ -2,7 +2,6 @@
 
 namespace Micro\Plugin\Eav\Business\Value\Typehint;
 
-
 use RuntimeException;
 
 interface ValueTypehintConverterFactoryInterface

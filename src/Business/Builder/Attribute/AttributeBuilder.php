@@ -43,12 +43,13 @@ class AttributeBuilder implements AttributeBuilderInterface
      * @param AttributeFactoryInterface $attributeFactory
      */
     public function __construct(
-        private SchemaAttributeManagerInterface $schemaManager,
-        private SchemaBuilderInterface          $schemaBuilder,
-        private AttributeFactoryInterface       $attributeFactory,
-        private string                          $attributeName
+    private SchemaAttributeManagerInterface $schemaManager,
+    private SchemaBuilderInterface          $schemaBuilder,
+    private AttributeFactoryInterface       $attributeFactory,
+    private string                          $attributeName
     )
-    {}
+    {
+    }
 
 
     /**

@@ -2,7 +2,6 @@
 
 namespace Micro\Plugin\Eav\Business\Entity\Repository;
 
-
 use Micro\Plugin\Eav\Business\Entity\Resolver\EntityResolverInterface;
 use Micro\Plugin\Eav\Business\Schema\Resolver\SchemaResolverInterface;
 use Micro\Plugin\Eav\Entity\Entity\EntityInterface;
@@ -17,10 +16,12 @@ class EntityRepository implements EntityRepositoryInterface
      * @param string $schemaName
      */
     public function __construct(
-        private SchemaResolverInterface $schemaResolver,
-        private EntityResolverInterface $entityResolver,
-        private string $schemaName
-    ) {}
+    private SchemaResolverInterface $schemaResolver,
+    private EntityResolverInterface $entityResolver,
+    private string $schemaName
+    )
+    {
+    }
 
     /**
      * {@inheritDoc}

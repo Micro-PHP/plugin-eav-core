@@ -2,7 +2,6 @@
 
 namespace Micro\Plugin\Eav\Business\Value\Typehint\Converter;
 
-
 use Micro\Plugin\Eav\Business\Value\Typehint\ValueTypehintConverterInterface;
 use Micro\Plugin\Eav\Exception\InvalidArgumentException;
 

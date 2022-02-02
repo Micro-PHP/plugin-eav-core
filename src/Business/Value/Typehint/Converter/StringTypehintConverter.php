@@ -8,7 +8,7 @@ use Micro\Plugin\Eav\Exception\InvalidArgumentException;
 class StringTypehintConverter implements ValueTypehintConverterInterface
 {
     public const VALUE_TYPE_STRING = 'string';
-    public const VALUE_TYPE_TEXT = 'text';
+    public const VALUE_TYPE_TEXT   = 'text';
 
     /**
      * @param mixed $value
@@ -24,7 +24,7 @@ class StringTypehintConverter implements ValueTypehintConverterInterface
             $this->throwException();
         }
 
-        if(!is_object($value) && settype( $item, 'string' ) === false ) {
+        if(!is_object($value) && settype( $item, 'string' ) === false) {
             $this->throwException();
         }
 

@@ -2,7 +2,6 @@
 
 namespace Micro\Plugin\Eav\Entity\Attribute;
 
-
 interface AttributeInterface
 {
     /**
