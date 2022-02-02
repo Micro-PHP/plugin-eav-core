@@ -22,15 +22,16 @@ class EntityBuilderFactory implements EntityBuilderFactoryInterface
      * @param EntityFactoryInterface $entityFactory
      */
     public function __construct(
-        private EntityAttributeResolverFactoryInterface        $entityAttributeResolverFactory,
-        private SchemaResolverFactoryInterface                 $schemaResolverFactory,
-        private ValueResolverFactoryInterface                  $valueResolverFactory,
-        private ValueObjectSetFactoryInterface                 $valueObjectSetFactory,
-        private ValueTypehintConverterFactoryInterface         $valueTypehintConverterFactory,
-        private EntityAttributeUniqueGeneratorFactoryInterface $entityAttributeUniqueGeneratorFactory,
-        private EntityFactoryInterface                         $entityFactory
+    private EntityAttributeResolverFactoryInterface        $entityAttributeResolverFactory,
+    private SchemaResolverFactoryInterface                 $schemaResolverFactory,
+    private ValueResolverFactoryInterface                  $valueResolverFactory,
+    private ValueObjectSetFactoryInterface                 $valueObjectSetFactory,
+    private ValueTypehintConverterFactoryInterface         $valueTypehintConverterFactory,
+    private EntityAttributeUniqueGeneratorFactoryInterface $entityAttributeUniqueGeneratorFactory,
+    private EntityFactoryInterface                         $entityFactory
     )
-    {}
+    {
+    }
 
     /**
      * {@inheritDoc}

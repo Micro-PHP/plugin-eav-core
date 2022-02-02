@@ -2,7 +2,6 @@
 
 namespace Micro\Plugin\Eav\Business\Entity\Manager;
 
-
 interface EntityObjectManagerFactoryInterface
 {
     /**

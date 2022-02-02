@@ -2,7 +2,6 @@
 
 namespace Micro\Plugin\Eav\Business\Attribute;
 
-
 use Micro\Plugin\Eav\Entity\Attribute\AttributeInterface;
 use Micro\Plugin\Eav\Entity\Schema\SchemaInterface;
 

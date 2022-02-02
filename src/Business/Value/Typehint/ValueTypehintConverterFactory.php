@@ -2,7 +2,6 @@
 
 namespace Micro\Plugin\Eav\Business\Value\Typehint;
 
-
 class ValueTypehintConverterFactory implements ValueTypehintConverterFactoryInterface
 {
     /**
@@ -50,7 +49,7 @@ class ValueTypehintConverterFactory implements ValueTypehintConverterFactoryInte
             throw new \RuntimeException(sprintf('Class "%s" is not exists and can not be autoload.', $converterClass));
         }
 
-        $implements = class_implements($converterClass);
+        $implements        = class_implements($converterClass);
         $typehintInterface = ValueTypehintConverterInterface::class;
 
         if(!in_array($typehintInterface, $implements, true)) {

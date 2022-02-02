@@ -8,7 +8,7 @@ use Micro\Plugin\Eav\Exception\InvalidArgumentException;
 class DateTimeTypehintConverter implements ValueTypehintConverterInterface
 {
 
-    public const VALUE_TYPE_DATE = 'date';
+    public const VALUE_TYPE_DATE     = 'date';
     public const VALUE_TYPE_DATETIME = 'datetime';
 
     /**

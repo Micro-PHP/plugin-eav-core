@@ -2,7 +2,6 @@
 
 namespace Micro\Plugin\Eav\Exception;
 
-
 use Micro\Plugin\Eav\Entity\Entity\EntityInterface;
 
 class EntityValidationException extends InvalidArgumentException
@@ -14,8 +13,8 @@ class EntityValidationException extends InvalidArgumentException
      * @param \Throwable|null $previous
      */
     public function __construct(
-        private iterable $validationExceptionCollection,
-        private EntityInterface $entity,
+    private iterable $validationExceptionCollection,
+    private EntityInterface $entity,
         int $code = 0,
         ?\Throwable $previous = null)
     {
@@ -39,6 +38,4 @@ class EntityValidationException extends InvalidArgumentException
     {
         return $this->validationExceptionCollection;
     }
-
-
 }

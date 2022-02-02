@@ -12,9 +12,11 @@ class SchemaFacadeFactory implements SchemaFacadeFactoryInterface
      * @param SchemaObjectManagerFactoryInterface $schemaObjectManagerFactory
      */
     public function __construct(
-        private SchemaBuilderFactoryInterface $schemaBuilderFactory,
-        private SchemaObjectManagerFactoryInterface $schemaObjectManagerFactory
-    ) {}
+    private SchemaBuilderFactoryInterface $schemaBuilderFactory,
+    private SchemaObjectManagerFactoryInterface $schemaObjectManagerFactory
+    )
+    {
+    }
 
     /**
      * {@inheritDoc}

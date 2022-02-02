@@ -42,10 +42,12 @@ class SchemaBuilder implements SchemaBuilderInterface
      * @param AttributeBuilderFactoryInterface $attributeBuilderFactory
      */
     public function __construct(
-        private SchemaResolverFactoryInterface $schemaResolverFactory,
-        private SchemaFactoryInterface $schemaFactory,
-        private AttributeBuilderFactoryInterface $attributeBuilderFactory
-    ) {}
+    private SchemaResolverFactoryInterface $schemaResolverFactory,
+    private SchemaFactoryInterface $schemaFactory,
+    private AttributeBuilderFactoryInterface $attributeBuilderFactory
+    )
+    {
+    }
 
     /**
      * {@inheritDoc}
@@ -131,7 +133,7 @@ class SchemaBuilder implements SchemaBuilderInterface
         }
 
         $resolver = $this->schemaResolverFactory->create();
-        $schema = $resolver->resolve($this->name);
+        $schema   = $resolver->resolve($this->name);
 
         if($schema === null) {
             return $this->schemaFactory->create($this->name);

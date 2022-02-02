@@ -2,8 +2,6 @@
 
 namespace Micro\Plugin\Eav\Business\Schema;
 
-
-
 interface SchemaAttributeManagerFactoryInterface
 {
     /**

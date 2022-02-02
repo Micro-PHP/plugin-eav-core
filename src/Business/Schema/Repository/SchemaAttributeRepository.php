@@ -14,10 +14,12 @@ class SchemaAttributeRepository implements SchemaAttributeRepositoryInterface
      * @param SchemaAttributeResolverInterface $schemaAttributeResolver
      */
     public function __construct(
-        private SchemaResolverInterface $schemaResolver,
-        private SchemaAttributeResolverInterface $schemaAttributeResolver,
-        private string $schemaName
-    ) {}
+    private SchemaResolverInterface $schemaResolver,
+    private SchemaAttributeResolverInterface $schemaAttributeResolver,
+    private string $schemaName
+    )
+    {
+    }
 
     /**
      * {@inheritDoc}

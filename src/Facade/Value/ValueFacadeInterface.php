@@ -2,7 +2,6 @@
 
 namespace Micro\Plugin\Eav\Facade\Value;
 
-
 use Micro\Plugin\Eav\Entity\Entity\EntityInterface;
 use Micro\Plugin\Eav\Entity\Value\ValueInterface;
 
